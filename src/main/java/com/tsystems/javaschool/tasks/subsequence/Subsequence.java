@@ -14,7 +14,28 @@ public class Subsequence {
      */
     @SuppressWarnings("rawtypes")
     public boolean find(List x, List y) {
-        // TODO: Implement the logic here
-        return false;
+        //проверяем, что списки не равны null
+        if (x == null || y == null) {
+            throw new IllegalArgumentException();
+        }
+        int nextIndex = 0; //текущий индекс из списка y
+        int prevIndex; //прыдущий индекс из списка y
+
+        for (int i = 0; i < x.size(); i++) {
+            //если y не содержит элемент из x, то возвраем false
+            if (!y.contains(x.get(i))) {
+                return false;
+            }
+            //запоминаем предыдущий индекс из y
+            prevIndex = nextIndex;
+            nextIndex = y.indexOf(x.get(i)); //получаем следующий индекс из y
+            //если следующий индекс оказался меньше предыдущего, значит числа из x хранятся в y в другом порядке
+            //возвращем false
+            if (nextIndex < prevIndex) {
+                return false;
+            }
+        }
+        //если не встретили противоречий, возвращаем true
+        return true;
     }
 }
